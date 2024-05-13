@@ -25,7 +25,6 @@ const VideoDetail = () => {
         setParagraphs(data.items[0].snippet.description.slice(0, 200))
         setChannel2(data.items[0].snippet.channelId)
       })
-    console.log(channel2)
     fetchFromAPI(`channels?part=snippet&id=${channel2}`).then((data) => setChannel(data.items[0].snippet.thumbnails))
 
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
@@ -37,7 +36,6 @@ const VideoDetail = () => {
 
   if (!videoDetail?.snippet) return <Loader />;
 
-  console.log(channel)
 
   const { snippet: { title, channelId, channelTitle, description }, statistics: { viewCount, likeCount } } = videoDetail;
 
@@ -53,7 +51,7 @@ const VideoDetail = () => {
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#000" }} py={1} px={2} >
               <Link to={`/channel/${channelId}`}>
                 <div className="flex items-start gap-2">
-                  <img className="w-[80px] h-[80px]  rounded-full" src={channel.default.url || demoProfilePicture} alt={channelTitle} />
+                  <img className="w-[80px] h-[80px]  rounded-full" src={channel?.default.url || demoProfilePicture} alt={channelTitle} />
                   <Typography className="muli text-[26px] font-bold" color="#000" >
                     {channelTitle}
                     <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
