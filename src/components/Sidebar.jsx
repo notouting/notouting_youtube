@@ -1,7 +1,7 @@
 import { AlarmClock, Flame, Folder, Folders, History, HomeIcon } from "lucide-react"
 
 const Categories = ({ selectedCategory, setSelectedCategory }) => (
-  <div className="w-[250px] px-5">
+  <div className="w-[250px] px-5 max-[547px]:hidden">
     <ul className="flex flex-col gap-[28px]">
       <li className="flex items-center gap-[13px] hover:text-red-500 text-black cursor-pointer">
         <HomeIcon className="w-5 h-5" />

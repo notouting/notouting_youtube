@@ -12,6 +12,8 @@ import { Eye, Heart } from "lucide-react";
 const VideoDetail = () => {
   const paragraphRef = useRef(null);
   const [videoDetail, setVideoDetail] = useState(null);
+  const [channel, setChannel] = useState(null);
+  const [channel2, setChannel2] = useState(null);
   const [videos, setVideos] = useState(null);
   const { id } = useParams();
   const [paragraphs, setParagraphs] = useState('');
@@ -20,18 +22,24 @@ const VideoDetail = () => {
     fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
       .then((data) => {
         setVideoDetail(data.items[0])
-        console.log(data)
         setParagraphs(data.items[0].snippet.description.slice(0, 200))
+        setChannel2(data.items[0].snippet.channelId)
       })
+    console.log(channel2)
+    fetchFromAPI(`channels?part=snippet&id=${channel2}`).then((data) => setChannel(data.items[0].snippet.thumbnails))
 
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
       .then((data) => setVideos(data.items))
-  }, [id]);
+
+
+    window.scrollTo(0, 0);
+  }, [id, channel2]);
 
   if (!videoDetail?.snippet) return <Loader />;
 
-  const { snippet: { title, channelId, channelTitle, thumbnails, description }, statistics: { viewCount, likeCount } } = videoDetail;
+  console.log(channel)
 
+  const { snippet: { title, channelId, channelTitle, description }, statistics: { viewCount, likeCount } } = videoDetail;
 
   return (
     <Box minHeight="95vh">
@@ -45,14 +53,14 @@ const VideoDetail = () => {
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#000" }} py={1} px={2} >
               <Link to={`/channel/${channelId}`}>
                 <div className="flex items-start gap-2">
-                  <img className="w-[80px] h-[80px]  rounded-full" src={thumbnails?.high?.url || demoProfilePicture} alt={channelTitle} />
+                  <img className="w-[80px] h-[80px]  rounded-full" src={channel.default.url || demoProfilePicture} alt={channelTitle} />
                   <Typography className="muli text-[26px] font-bold" color="#000" >
                     {channelTitle}
                     <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
                   </Typography>
                 </div>
               </Link>
-              <Stack direction="row" gap="20px" alignItems="center">
+              <Stack direction="row" gap="20px" alignItems="center" >
                 <div className="flex items-center gap-1">
                   <Heart className="text-red-500 " />
                   <p className="text-black">

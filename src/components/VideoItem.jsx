@@ -31,8 +31,8 @@ const VideoItem = ({ video: { id: { videoId }, snippet } }) => {
 
 
     return (
-        <li className="w-[250px] list-none h-[250px] ">
-            <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY`}>
+        <li className="w-[250px] list-none h-[250px] max-[547px]:mx-auto">
+            <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY#haeder`}>
                 <img className="w-[250px] h-[150px] rounded-[14px]" src={snippet?.thumbnails?.high?.url || demoThumbnailUrl} alt={snippet?.title} />
             </Link>
             <Link to={videoId ? `/video/${videoId}` : demoVideoUrl} >

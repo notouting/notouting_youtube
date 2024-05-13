@@ -12,7 +12,7 @@ const Header = () => {
 
     };
     return (
-        <header className=" px-5 py-5 flex bg-white">
+        <header className=" px-5 py-5 flex bg-white" id="header">
             <div className="w-full flex items-center">
                 <div className="flex items-center gap-5 max-w-[250px] w-full">
                     <button>
@@ -29,7 +29,7 @@ const Header = () => {
                     </button>
                 </form>
             </div>
-            <div className="flex items-center justify-end w-full gap-[25px]">
+            <div className="flex items-center justify-end w-full gap-[25px] max-[547px]:hidden">
                 <a href="https://github.com/notouting" target="_blank" className="text-black font-bold">notouting</a>
                 <button>
                     <Video />
